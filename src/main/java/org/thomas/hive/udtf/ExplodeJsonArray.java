@@ -16,6 +16,9 @@ import java.util.List;
 
 
 /**
+ *  hive udtf 函数
+ *  用来展开jsonArray的字符串列
+ *
  * create table tb1(
  *     name string,
  *     info string
