@@ -21,8 +21,8 @@ import java.util.ArrayList;
  *                           ,('peter','[{"k4":"v4"},{"k66":"v66"}]');
  *
  *  add jar /Users/thomas990p/IdeaProjects/hiveThomasUDF/target/hiveThomasUDF-1.0-SNAPSHOT-jar-with-dependencies.jar;
- *  create temporary function udf_jsarr_2_arr as "org.thomas.hive.udf.ExplodeJsonArr";
- *  select * from tb1 lateral view explode(udf_jsarr_2_arr(info)) tmp_table_name AS field_name2;
+ *  create temporary function get_json_array as "org.thomas.hive.udf.GetJsonArray";
+ *  select * from tb1 lateral view explode(get_json_array(info)) tmp_table_name AS field_name2;
  *
  *  输出:
  *  | name | info | field\_name2 |
@@ -32,7 +32,7 @@ import java.util.ArrayList;
  * | peter | \[{"k4":"v4"},{"k66":"v66"}\] | {"k4":"v4"} |
  * | peter | \[{"k4":"v4"},{"k66":"v66"}\] | {"k66":"v66"} |
  */
-public class ExplodeJsonArr extends UDF {
+public class GetJsonArray extends UDF {
     // hive udf 传入JsonArray格式的string 返回字符串数组
     public ArrayList<String> evaluate(String jsonArr) {
         if (jsonArr == null) {

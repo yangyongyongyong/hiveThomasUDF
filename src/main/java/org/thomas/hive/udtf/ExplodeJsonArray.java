@@ -29,8 +29,8 @@ import java.util.List;
  *                           ,('peter','[{"k4":"v4"},{"k66":"v66"}]');
  *
  *  add jar /Users/thomas990p/IdeaProjects/hiveThomasUDF/target/hiveThomasUDF-1.0-SNAPSHOT-jar-with-dependencies.jar;
- *  create temporary function udtf_jsarr_2_arr as "org.thomas.hive.udtf.ExplodeJsonArray";
- *  select * from tb1 lateral view udtf_jsarr_2_arr(info) tmp_table_name AS ainfo;
+ *  create temporary function explode_json_array as "org.thomas.hive.udtf.ExplodeJsonArray";
+ *  select * from tb1 lateral view explode_json_array(info) tmp_table_name AS ainfo;
  *
  *  输出:
  *  | name | info | ainfo |
