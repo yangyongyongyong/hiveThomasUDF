@@ -1,15 +1,3 @@
-# 开源 
-
-
-
-# github hive udf 项目
-```
-https://github.com/dataiku/dataiku-hive-udf
-
-```
-
-
-
 # 加载 + 使用
 ```hiveql
 add jar /Users/thomas990p/IdeaProjects/hiveThomasUDF/target/hiveThomasUDF-1.0-SNAPSHOT-jar-with-dependencies.jar;
