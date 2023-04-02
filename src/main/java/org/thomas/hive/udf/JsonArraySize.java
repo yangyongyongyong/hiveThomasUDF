@@ -1,5 +1,6 @@
 package org.thomas.hive.udf;
 
+import com.alibaba.fastjson.JSON;
 import org.apache.hadoop.hive.ql.exec.UDF;
 
 /**
@@ -13,6 +14,6 @@ public class JsonArraySize extends UDF {
         if (jsonArr == null) {
             return 0;
         }
-        return jsonArr.length();
+        return JSON.parseArray(jsonArr).size();
     }
 }
