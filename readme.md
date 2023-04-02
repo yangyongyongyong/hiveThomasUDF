@@ -26,6 +26,8 @@ create temporary function get_json_object_via_path as 'org.thomas.hive.udf.GetJs
 create temporary function get_json_array_via_path as 'org.thomas.hive.udf.GetJsonArrayViaPath';
 -- select get_json_array_via_path('{"k1":100,"k2":[11,22,33]}','$.k2') ;
     -- ["11","22","33"]  Array<String> 
+-- select get_json_array_via_path('[{"k1":11,"k2":22},{"k1":44,"k2":55}]','$[*].k1') ;
+    -- [11,44] 这里是数组
 
 create temporary function castArrayType2Int as 'org.thomas.hive.udf.ArrayCastType.CastArrayT1Cast2Int';
 -- select castArrayType2Int(array('1','2')) ;
