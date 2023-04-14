@@ -94,7 +94,7 @@ public class ArrayIntersectUDF extends GenericUDF {
 
     @Override
     public String getDisplayString(String[] arg0) {
-        return "intersect_array(" + arg0[0] + ", " + arg0[1] + " )";
+        return "array_intersect(" + arg0[0] + ", " + arg0[1] + " )";
     }
 
 

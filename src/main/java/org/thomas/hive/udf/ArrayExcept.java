@@ -11,20 +11,28 @@ import org.apache.hadoop.hive.serde2.objectinspector.StandardListObjectInspector
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 
 /**
- * Return a list of unique entries, for a given set of lists.
- * union: 去重
- * unionAll: 不去重
- * {1, 2} ∪ {1, 2} = {1, 2, 1, 2}
- * {1, 2} ∪ {2, 3} = {1, 2, 2 , 3}
- * {1, 2, 3} ∪ {3, 4, 5} = {1, 2, 3, 3, 4, 5}
+ * desc: 数组差集 保证第一个数组的元素顺序不变. 注意:该函数不会去做元素去重.
+ *  select array_except(`array`(11,22,33),`array`(22));
+ *      [11,33]
+ *  select array_except(`array`(44,11,22,33,11,11),`array`(22),`array`(11,33,11));
+ *      [44]
+ *  select array_except(`array`(44,11,22,33,11,11),`array`(11));
+ *      [44,22,33]
+ *  select array_except(`array`(44,11,22,33,11,11,null),`array`(22),`array`(11,33,11));
+ *      [44,null]
+ *  select array_except(`array`(44,11,22,33,11,11,null),`array`(22),`array`(11,33,11,null));
+ *      [44]
+ *  select array_except(`array`(44,11,22,33,11,11),`array`(22),`array`(11,33,11,null));
+ *      [44]
+ *  select array_except(`array`(11,222,3,44,555,6666),`array`(3),`array`(0,555));
+ *      [11,222,44,6666]
+ *  select array_except(`array`("aa","bbb","c","dd","eee","ffff"),`array`("c"),`array`("xyz","eee"));
+ *      ["aa","bbb","dd","ffff"]
  */
-
-public class ArrayUnionALLUDF extends GenericUDF {
+public class ArrayExcept extends GenericUDF {
 	// 用来处理数组类型数据 是 ListObjectInspector 的子类
 	private StandardListObjectInspector retValInspector;
 
@@ -69,12 +77,21 @@ public class ArrayUnionALLUDF extends GenericUDF {
 			// udf内元素间遍历
 			for (int j = 0; j < listInspectorArr[i].getListLength(undeferred); ++j) {
 				Object nonStd = listInspectorArr[i].getListElement(undeferred, j);
-				// o: 新元素 oi:
 				InspectableObject stdInsp = new InspectableObject(nonStd, listInspectorArr[i].getListElementObjectInspector());
-				objects.add(stdInsp);
+
+				if (i == 0){
+					//第一个都放到objects中
+					objects.add(stdInsp);
+				}else{
+					// 其余的 都从objects中剔除
+					while (objects.contains(stdInsp)){
+						// 避免第一个数组存在重复值 导致无法剔除干净
+						objects.remove(stdInsp);
+					}
+				}
 			}
 		}
-
+		// 返回值 retVal
 		List retVal = (List) retValInspector.create(0);
 		for (Object io : objects) {
 			InspectableObject inspObj = (InspectableObject) io;
@@ -88,7 +105,7 @@ public class ArrayUnionALLUDF extends GenericUDF {
 
 	@Override
 	public String getDisplayString(String[] arg0) {
-		return "array_union_all(" + arg0[0] + ", " + arg0[1] + " )";
+		return "array_except(" + arg0[0] + ", " + arg0[1] + " )";
 	}
 
 

@@ -35,5 +35,11 @@ create temporary function array_index_of as "org.thomas.hive.udf.ArrayIndexOfUDF
 -- select array_index_of(`array`(11,22,33,44),33); -- 返回指定元素在数组列中的index. index从0开始. 不存在则返回 -1
     -- 2
 
+create temporary function array_remove as 'org.thomas.hive.udf.ArrayRemove';
+-- select array_remove(`array`(11,22,33,22,100),22,100);
+    -- [11,33]
 
+create temporary function array_except as 'org.thomas.hive.udf.ArrayExcept';
+-- select array_except(`array`(11,22,33,22,100),`array`(22),`array`(100));
+    -- [11,33]
 ```
