@@ -82,7 +82,8 @@ public class ArrayIndexOfUDF extends GenericUDF {
             Object listElement = arrayOI.getListElement(array, i);
             if (listElement != null) {
                 if (ObjectInspectorUtils.compare(value, valueOI, listElement, arrayElementOI) == 0) {
-                    result.set(i);
+                    // 这里和spark同名函数保持一致逻辑  返回的index从1开始
+                    result.set(i+1);
                     break;
                 }
             }
@@ -94,6 +95,6 @@ public class ArrayIndexOfUDF extends GenericUDF {
     @Override
     public String getDisplayString(String[] children) {
         assert (children.length == ARG_COUNT);
-        return "array_index_of(" + children[ARRAY_IDX] + ", " + children[VALUE_IDX] + ")";
+        return "array_position(" + children[ARRAY_IDX] + ", " + children[VALUE_IDX] + ")";
     }
 }
