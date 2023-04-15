@@ -13,7 +13,7 @@ import org.apache.hadoop.hive.serde2.objectinspector.ObjectInspectorUtils;
 import org.apache.hadoop.hive.serde2.objectinspector.primitive.PrimitiveObjectInspectorFactory;
 import org.apache.hadoop.io.IntWritable;
 
-public class ArrayIndexOfUDF extends GenericUDF {
+public class ArrayPosition extends GenericUDF {
 
     private static final int ARRAY_IDX = 0;
     private static final int VALUE_IDX = 1;

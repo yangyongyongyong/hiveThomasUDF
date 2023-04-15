@@ -28,7 +28,6 @@ public class ArrayUnionALLUDF extends GenericUDF {
 	// 用来处理数组类型数据 是 ListObjectInspector 的子类
 	private StandardListObjectInspector retValInspector;
 
-	// 存储了udf的输入  [array(1,2),array(33,44)]
 	private ListObjectInspector[] listInspectorArr;
 
 	// 这个内部类是为了比较 ObjectInspector 是否相同
