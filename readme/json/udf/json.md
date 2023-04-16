@@ -14,7 +14,7 @@ create temporary function get_json_array_via_path as 'org.thomas.hive.udf.GetJso
 -- select get_json_array_via_path('[{"k1":11,"k2":22},{"k1":44,"k2":55}]','$[*].k1') ;
     -- [11,44] 这里是数组
 -- select get_json_array_via_path('[{"des":"i am 1","id":1},{"des":"i am 2","id":2},{"des":"i am 0","id":0}]','$[?(@.id = 0)].des');
-    -- ["i am 0"]
+    -- ["i am 0"]  -- jsonpath语法: https://alibaba.github.io/fastjson2/jsonpath_cn
 
 create temporary function get_json_array as "org.thomas.hive.udf.GetJsonArray";
 -- select name,field_name2 from tb1 lateral view explode(get_json_array('[{"k1":"v1"},{"k2":"v2"}]')) tmp_table_name AS field_name2 limit 2;
