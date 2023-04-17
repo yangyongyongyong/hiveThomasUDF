@@ -17,12 +17,16 @@ public class GetJsonArrayViaPath extends UDF {
         if (json == null || path == null) {
             return null;
         }
-        JSONArray js_arr = JSON.parseArray(JSONPath.of(path).extract(JSONReader.of(json)).toString());
-        // js_arr 转换为java数组
         ArrayList<String> arr = new ArrayList<String >();
-        for (int i = 0; i < js_arr.size(); i++) {
-            arr.add(js_arr.getString(i));
-        }
+
+        try {
+            JSONArray js_arr = JSON.parseArray(JSONPath.of(path).extract(JSONReader.of(json)).toString());
+            // js_arr 转换为java数组
+            for (int i = 0; i < js_arr.size(); i++) {
+                arr.add(js_arr.getString(i));
+            }
+        }catch (Exception e){}
+
         return arr;
     }
 }
