@@ -19,7 +19,7 @@ public class GetJsonObjectViaPath extends UDF {
         }
         String str = null;
         try{
-            JSONPath.of(path).extract(JSONReader.of(json)).toString();
+            str = JSONPath.of(path).extract(JSONReader.of(json)).toString();
         }catch (Exception e){}
 
         return str;

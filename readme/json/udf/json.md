@@ -10,6 +10,11 @@ create temporary function get_json_object_via_path as 'org.thomas.hive.udf.GetJs
 -- select get_json_object_via_path('[{"des":"i am 1","id":1},{"des":"i am 2","id":2},{"des":"i am 0","id":0}]','$[?(@.id = 0)].des[0]');
     -- i am 0
 
+create temporary function get_json_object_type_via_path as 'org.thomas.hive.udf.GetJsonObjectTypeViaPath';
+-- select get_json_object_type_via_path('{"age":"22"}','$.age'); -- String
+-- select get_json_object_type_via_path('{"age":22}','$.age'); -- Long
+-- select get_json_object_type_via_path('{"age":"22"}','$.name'); -- null
+
 create temporary function get_json_array_via_path as 'org.thomas.hive.udf.GetJsonArrayViaPath';
 -- select get_json_array_via_path('{"k1":100,"k2":[11,22,33]}','$.k2') ;
     -- ["11","22","33"]  Array<String> 
