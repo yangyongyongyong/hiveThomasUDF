@@ -12,8 +12,8 @@ create temporary function get_json_object_via_path as 'org.thomas.hive.udf.GetJs
 
 create temporary function get_json_object_type_via_path as 'org.thomas.hive.udf.GetJsonObjectTypeViaPath';
 -- select get_json_object_type_via_path('{"age":"22"}','$.age'); -- String
--- select get_json_object_type_via_path('{"age":22}','$.age'); -- Long
--- select get_json_object_type_via_path('{"age":2.22}','$.age'); -- Long
+-- select get_json_object_type_via_path('{"age":22}','$.age'); -- Numeric
+-- select get_json_object_type_via_path('{"age":2.22}','$.age'); -- Numeric
 -- select get_json_object_type_via_path('{"age":"22"}','$.name'); -- null
 
 create temporary function get_json_array_via_path as 'org.thomas.hive.udf.GetJsonArrayViaPath';

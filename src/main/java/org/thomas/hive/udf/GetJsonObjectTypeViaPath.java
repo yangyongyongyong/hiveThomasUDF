@@ -9,7 +9,7 @@ import org.apache.hadoop.hive.ql.exec.UDF;
  * 作用: 获取json中某个key对应的value的数据类型(用来识别json value类型是否符合预期). 只支持区分long和string
  * 解决痛点: hive自带的get_json_object无法识别数据类型,都按string处理
  *      create table t1 as select get_json_object('{"age":"22"}','$.age') as c1;  -- c1 String
- *      create table t3 as select get_json_object('{"age":22}','$.age') as c3;  -- c3 Long
+ *      create table t3 as select get_json_object('{"age":22}','$.age') as c3;  -- c3 Numeric
  */
 public class GetJsonObjectTypeViaPath extends UDF {
     public String evaluate(String json, String path) {
@@ -25,7 +25,7 @@ public class GetJsonObjectTypeViaPath extends UDF {
         if (obj == null) {
             s = null;
         }else{
-            s = obj instanceof String ? "String" : "Long";
+            s = obj instanceof String ? "String" : "Numeric";
         }
 
         return s;
