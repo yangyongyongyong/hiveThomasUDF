@@ -35,4 +35,9 @@ create temporary function get_json_array as "org.thomas.hive.udf.GetJsonArray";
     -- |thomas|{"k1":"v1"}|
     -- |thomas|{"k2":"v2"}|
     -- +------+-----------+
+    
+-- struct 转 json
+create temporary function to_json as 'org.thomas.hive.udf.Convert.AnyToJson';
+-- INSERT INTO default.tt1 (id, name, dt) VALUES (10, 'j', '2019-01-01');
+
 ```
