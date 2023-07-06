@@ -39,5 +39,6 @@ create temporary function get_json_array as "org.thomas.hive.udf.GetJsonArray";
 -- struct 转 json
 create temporary function to_json as 'org.thomas.hive.udf.Convert.AnyToJson';
 -- INSERT INTO default.tt1 (id, name, dt) VALUES (10, 'j', '2019-01-01');
-
+select to_json(named_struct("id",id,"name",name,"dt",dt)) from tt1;
+-- {"id":7,"name":"g","dt":"2019-01-01"}
 ```
